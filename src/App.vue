@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-    <appBody/>
+    <Body/>
   </div>
 </template>
 
 <script>
-  import appBody from './components/Body.vue';
+  import Body from './components/Body.vue'
   
   export default {
-    components: {appBody}
+    components: {
+      Body
+    }
+     
   }
 </script>
 
