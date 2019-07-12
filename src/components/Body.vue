@@ -1,41 +1,75 @@
 <template>
   <div id="Body">
-    <form v-on:submit.prevent="addProduto">
-      <label for="new-produto"><h1>adicione sua compras:</h1></label>
-      <p>o produto comprado:<input v-model="newProduto" id="new-produto" placeholder="Ex.: camisa"></p>
-      <p>a loja visitada:<input v-model="newLoja" id="new-produto" placeholder="Ex.: Riachuelo"></p>
-      <p>o preço da compra:<input v-model="newPreco" id="new-produto" placeholder="Ex.: R$ 29.99"></p>
-      <select v-model="newQuant" id="new-produto">
-        <option disabled value="">Escolha um item</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10 itens ou Mais</option>
-        </select>
-      <button>adicionar</button>
-      <hr>
+    <h1>adicione suas compras:</h1>
+    <div class="caixa">
 
-      <div :class="bloco_compra" v-for="produto in compras" :key="produto">
-        <input type="checkbox">
-          <big>
-            {{produto.id}}
-            {{produto.title}}
-            {{produto.loja}}
-            {{produto.preco}}
-            {{produto.quant}}
-          </big>
-          <span>
-            <button @click="removeProduto(produto)">x</button>
-          </span>
-      </div>
+      <form v-on:submit.prevent="addProduto">
+        <label for="new-produto"></label>
+        <table>
+          <tr>
+            <th class="tabtext"><span>o produto comprado:</span></th>
+            <th class="tabinp"><input class="form-control" v-model="newProduto" id="new-produto" placeholder="Ex.: camisa"></th>
+          </tr>
+          <tr>
+            <th class="tabtext"><span>a loja visitada:</span></th>
+            <th class="tabinp"><input class="form-control" v-model="newLoja" id="new-produto" placeholder="Ex.: Riachuelo"></th>
+          </tr>
+          <tr>
+            <th class="tabtext"><span>o preço da compra:</span></th>
+            <th class="tabinp"><input 
+              v-model="newPreco" 
+              class="form-control"
+              id="new-produto" 
+              type="number" 
+              placeholder="Ex.: R$ 29.99" 
+              min="0.0" max="100000.0">
+            </th>
+          </tr>
+          <tr>
+            <th class="tabtext"><span>quantidade:</span></th>
+            <th class="tabinp">
+              <select class="form-control" v-model="newQuant" id="new-produto"><br>
+              <option disabled value="">Escolha um item</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10 itens ou Mais</option>
+            </select>
+            </th>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="btn">
+      <button type="button" class="btn btn-outline-success" @click="addProduto">adicionar</button><br>
+    </div>
 
-    </form>
+    <div>
+      <table class="table" border="1">
+        <tr>
+          <th>lista de compras realizadas</th>
+        </tr>
+        <tr>
+          <th>
+            <section class="lista_compra" v-for="produto in compras" :key="produto.id">
+              produto:{{produto.title}},
+              loja:{{produto.loja}},
+              preço:{{produto.preco}},
+              quantidade:{{produto.quant}}
+              <span>
+                <button type="button" class="btn btn-outline-danger" @click="removeProduto(produto)">x</button>
+              </span>
+            </section>
+          </th>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -47,8 +81,8 @@
         idCompra: 1,
         newProduto: '',
         newLoja: '',
-        newPreco: '',
-        newQuant: '',
+        newPreco: null,
+        newQuant: 1,
         compras: []
       }
     },
@@ -63,8 +97,8 @@
         })
         this.newProduto = ''
         this.newLoja = ''
-        this.newPreco = ''
-        this.newQuant = ''
+        this.newPreco = null
+        this.newQuant = 1
       },
       removeProduto: function(produto) {
         this.compras.splice(this.compras.indexOf(produto), 1)
@@ -74,23 +108,14 @@
 </script>
 
 <style>
-.bloco_compra {
-  position: relative;
-  box-sizing: border-box;
-  width: 350px;
-  height: 150px;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 2rem;
-  font-weight: 300;
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #DDD;
-  border-left: 12px solid #0A8F08;
-  background-color: #4CAF50;
-  text-decoration: line-through;
+.caixa {
+  padding-left: 431px;
+  padding-bottom: 10px;
+}
+.tabtext {
+  text-align: right;
+}
+.tabinp {
+  text-align: left;
 }
 </style>
