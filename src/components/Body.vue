@@ -1,8 +1,7 @@
 <template>
   <div id="Body">
-    <h1>adicione suas compras:</h1>
     <div class="caixa">
-
+      <h1>adicione suas compras:</h1>
       <form v-on:submit.prevent="addProduto">
         <label for="new-produto"></label>
         <table>
@@ -45,13 +44,14 @@
           </tr>
         </table>
       </form>
+      <div class="btn">
+        <button type="button" class="btn btn-outline-dark" @click="addProduto">adicionar</button><br>
+      </div>
     </div>
-    <div class="btn">
-      <button type="button" class="btn btn-outline-success" @click="addProduto">adicionar</button><br>
-    </div>
+    
 
     <div>
-      <table class="table" border="1">
+      <table class="table">
         <tr>
           <th>lista de compras realizadas</th>
         </tr>
@@ -109,11 +109,29 @@
 
 <style>
 .caixa {
-  padding-left: 431px;
+  background-color: #34A8DB;
+
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: 410px;
+
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 20px;
   padding-bottom: 10px;
+
+  height: auto;
+  width: 450px;
+  position: relative;
+}
+h1 {
+  color: #FFFFFF;
+  text-align: justify;
 }
 .tabtext {
   text-align: right;
+  color: #FFFFFF;
 }
 .tabinp {
   text-align: left;
