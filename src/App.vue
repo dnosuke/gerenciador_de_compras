@@ -1,8 +1,6 @@
 <template>
   <body>
-    <div id="app">
-      <Body/>
-    </div>
+    <Body/>
   </body>
 </template>
 
@@ -17,15 +15,4 @@
   }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: black;
-}
-body{
-  text-align: center;
-  background-image: url("./assets/backgroundimg.jpg");
-  background-size: cover; 
-}
-</style>
+<style src="./css/styles.css"></style>

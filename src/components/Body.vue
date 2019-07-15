@@ -1,7 +1,19 @@
 <template>
   <div id="Body">
+    <div class="header">
+      <h1>Gerenciador de Compras</h1>
+
+      <ul>
+        <li><a href="#../App.vue">Home</a></li>
+        <li><img id="icon1" src="../../public/imagens/calc.jpeg"><font color="#34A8DB">R$ {{valorTotal}}</font></li>
+        <li><img id="icon2" src="../../public/imagens/shop.png"><font color="#34A8DB"></font></li>
+        <div style="float:right">
+          <input id="search" type="text" placeholder="pesquise aqui...">
+        </div>
+      </ul>
+    </div>
     <div class="caixa">
-      <h1>Adicione suas compras:</h1>
+      <h2>Adicione suas compras:</h2 >
       <form v-on:submit.prevent="addProduto">
         <label for="new-produto"></label>
         <span>
@@ -55,21 +67,25 @@
     <div>
       <table class="lista" align="center">
         <tr class="contlist">
-          <th colspan="5">Lista de compras realizadas :{{valorTotal}}</th>
+          <th colspan="6">LISTA DE COMPRAS REALIZADAS</th>
         </tr>
         <tr class="contlist">
           <th>Produto</th>
           <th>Loja</th>
-          <th>Preço</th>
+          <th>Preço Uni.</th>
           <th>Quantidade</th>
+          <th>Preço Total</th>
+          <th></th>
         </tr>
         <tr class="contlist" v-for="produto in compras" :key="produto.id">
           <th>{{produto.title}}</th>
           <th>{{produto.loja}}</th>
           <th>{{produto.preco}}</th>
           <th>{{produto.quant}}</th>
+          <th>{{produto.total}}</th>
+          <th id="btn"><button class="btn btn-outline-danger" @click="removeProduto(produto,produto.total)">x</button></th>
         </tr>
-          <button class="btn btn-outline-danger" @click="removeProduto(produto)">x</button>
+  
       </table>
     </div>
 
@@ -105,55 +121,15 @@
         this.newPreco = null
         this.newQuant = 1
       },
-      removeProduto: function(produto) {
-        this.compras.splice(this.compras.indexOf(produto), 1)
+      removeProduto: function(produto,total) {
+        this.compras.splice(this.compras.indexOf(produto), 1),
+        this.valorTotal -= total
       },
       calcularGastos(){
         this.valorTotal = this.newPreco * this.newQuant + this.valorTotal
       }
-    }
+    } 
   }
 </script>
 
-<style>
-.caixa {
-  background-color: #34A8DB;
-
-  margin-top: 0px;
-  margin-bottom: 30px;
-  margin-right: 0px;
-  margin-left: 410px;
-
-  padding-top: 0px;
-  padding-right: 0px;
-  padding-left: 20px;
-  padding-bottom: 10px;
-
-  height: auto;
-  width: 450px;
-  position: relative;
-  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.479), 0 6px 20px 0 rgb(0, 0, 0);
-}
-.lista {
-  border-collapse: collapse;
-  width: 50%;
-}
-.contlist > th {
-  width: 10%;
-  padding: 8px;
-  text-align: center;
-  border-bottom: 2px solid black;
-}
-.contlist:hover {background-color:red;}
-h1 {
-  color: #FFFFFF;
-  text-align: justify;
-}
-.tabtext {
-  text-align: right;
-  color: #FFFFFF;
-}
-.tabinp {
-  text-align: left;
-}
-</style>
+<style></style>
