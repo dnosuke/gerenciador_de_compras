@@ -20,11 +20,11 @@
           <table>
             <tr>
               <th class="tabtext"><span>O produto comprado:</span></th>
-              <th class="tabinp"><input class="form-control" v-model="newProduto" id="new-produto" placeholder="Ex.: camisa" maxlength="20"></th>
+              <th class="tabinp"><input class="form-control" v-model="newProduto" id="new-produto" placeholder="Ex.: camisa" maxlength="20" required></th>
             </tr>
             <tr>
               <th class="tabtext"><span>A loja visitada:</span></th>
-              <th class="tabinp"><input class="form-control" v-model="newLoja" id="new-produto" placeholder="Ex.: Riachuelo" maxlength="20"></th>
+              <th class="tabinp"><input class="form-control" v-model="newLoja" id="new-produto" placeholder="Ex.: Riachuelo" maxlength="20" required></th>
             </tr>
             <tr>
               <th class="tabtext"><span>O preço da compra:</span></th>
@@ -32,9 +32,9 @@
                 v-model="newPreco" 
                 class="form-control"
                 id="new-produto" 
-                type="number" 
+                type="number" step="0.01"
                 placeholder="Ex.: R$ 29.99" 
-                min="0.0" max="100000.0">
+                min="0.0" max="100000.0" required>
               </th>
             </tr>
             <tr>
@@ -121,12 +121,38 @@
         this.newPreco = null
         this.newQuant = 1
       },
-      removeProduto: function(produto,total) {
-        this.compras.splice(this.compras.indexOf(produto), 1),
-        this.valorTotal -= total
-      },
+      removeProduto: function(produto,total) {var del = this.compras.indexOf(produto)
+
+          const Swalok = Swal.mixin({
+                  customClass: {
+                    confirmButton: 'btn-primary',
+                    cancelButton: 'btn btn-danger'
+                  },
+                  buttonsStyling: true,
+                })
+
+          Swalok.fire({
+            title: 'Apagar produto?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, apagar produto!',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if(result.value){
+              
+              this.compras.splice(this.compras.indexOf(produto), 1),
+               this.valorTotal -= total
+               this.valorTotal = parseFloat(this.valorTotal.toFixed(2))
+      }else if(result.dismiss === Swal.DismissReason.cancel){
+
+            }
+          })
+        },
       calcularGastos(){
-        this.valorTotal = this.newPreco * this.newQuant + this.valorTotal
+        this.valorTotal = parseFloat((this.newPreco * this.newQuant + this.valorTotal).toFixed(2))
       }
     } 
   }
