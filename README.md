@@ -1,4 +1,6 @@
-# gerenciador_de_tarefas
+# gerenciador_de_compras
+
+Projeto feito com o intuito de fixar conteudo aprendido em aula sobre Vue.
 
 ## Project setup
 ```
